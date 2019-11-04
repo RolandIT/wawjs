@@ -8,11 +8,13 @@ const async = require("async");
 function writeTempFile(fileName, ...args /* data, options, callback*/ ) {
   let cb = args.pop();
   
-  async./* TODO: what Method from async*/([
-    () => {
-      // task 1
+  async.waterfall([
+    (cb) => {
+      let tempDir = path.join(os.tmpdir(), `${process.pid}-`);
+      fs.mkdtemp(tempDir, (err, folder) => {
+            
     },
-    () => {
+    (folder,cb) => {
       // task 2
     }
   ], cb);
