@@ -5,10 +5,7 @@
  function saveSomewhere(paths, data, cb) {
    const tasks = paths.map(function(path){
     return (cb) => fs.writeFile(path,data,(err) => {
-      if(err){
-        return cb(err);
-      }
-      cb(null,path);
+      cb(err,path);
     })
   })
   async.tryEach(tasks,cb);
