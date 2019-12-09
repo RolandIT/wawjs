@@ -18,4 +18,5 @@ let request = http.request(url, {
 let input = fs.createReadStream(process.argv.slice(2)[0], {
     encoding: "utf8"
 });
+
 input.pipe(request);

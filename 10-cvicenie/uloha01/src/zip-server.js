@@ -1,4 +1,6 @@
 const http = require("http");
+const {pipeline } = require("stream");
+
 const {
     createDeflate, createInflate,
     createGzip, createGunzip,
@@ -6,12 +8,12 @@ const {
 } = require("zlib");
 const fs = require("fs");
 
-let path = "C:\\Users\\matej\\Desktop\\test\\test.txt";
+let path = "test.txt";
+let out = fs.createWriteStream(path);
 
 let server = http.createServer();
 server.listen(9999, "localhost")
     .on("request", (req, res) => {
-        let out = fs.createWriteStream(path);
         req.pipe(out);
-        req.pipe(createGzip()).pipe(res);
+        pipeline(req, createGzip(), res, (err) => {console.log(err)});
     });
