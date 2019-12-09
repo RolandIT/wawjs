@@ -45,3 +45,12 @@ class AddBom extends Transform {
         this._buff = null;
     }
 }
+
+class RemoveBom extends Transform {
+
+    _transform(chunk,enc, cb) {
+      this.push(chunk);
+      cb();
+    
+    }
+  }
