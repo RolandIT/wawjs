@@ -22,6 +22,19 @@ describe("Remove BOM", function() {
         assert.equal(chunk.length,0);
         done();
       });
-     
-  });
+    });
+    it("RemoveBom - should not remove BOM from empty file without BOM", function(done) {
+
+        let chunks = [];
+        let file = `${__dirname}/data/with-bom-empty.txt`;
+        fs.createReadStream(file, {highWaterMark: 2})
+          .pipe(bom.remove())
+          .on("error", done)
+          .on("data", (chunk) => chunks.push(chunk))
+          .on("finish", () => {
+            let chunk = Buffer.concat(chunks);
+            assert.equal(chunk.length,0);
+            done();
+          });
+        });
 });
