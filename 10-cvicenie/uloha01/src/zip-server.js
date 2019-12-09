@@ -8,12 +8,13 @@ const {
 } = require("zlib");
 const fs = require("fs");
 
-let path = "test.txt";
-let out = fs.createWriteStream(path);
+let savePath = "../Saves/test.txt";
+let save = fs.createWriteStream(savePath);
+
 
 let server = http.createServer();
-server.listen(9999, "localhost")
-    .on("request", (req, res) => {
-        req.pipe(out);
-        pipeline(req, createGzip(), res, (err) => {console.log(err)});
-    });
+server.listen(9999,"localhost")
+      .on("request", (req,res) => {
+            req.pipe(save);
+            pipeline(req, createGzip(), res, (err) => {console.log(err)});
+      });
